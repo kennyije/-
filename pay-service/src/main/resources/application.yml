@@ -4,7 +4,7 @@ server:
 spring:
   application:
     name: service-pay
-  rabbitmq:                  # 默认的 mq的配置时候，上述的配置方式，可以支持多个 broker
+  rabbitmq:
       port: 5672
       host: localhost
       username: root
@@ -20,15 +20,15 @@ spring:
           group: product-deadletter-queue
         outputBinding:
           producer:
-            required-groups: product-group #生产者exchange绑定队列
+            required-groups: product-group
       rabbit:
         bindings:
           outputBinding:
             producer:
-              ttl: 3000 #消息3秒不消费转入私信队列
-              autoBindDlq: true #启动私信队列
-              deadLetterExchange: inputBinding #绑定exchange
-              deadLetterQueueName: inputBinding.product-deadletter-queue #死信队列名字：exchanName.queueName
+              ttl: 3000
+              autoBindDlq: true
+              deadLetterExchange: inputBinding
+              deadLetterQueueName: inputBinding.product-deadletter-queue
 
 eureka:
   client:
